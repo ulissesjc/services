@@ -66,7 +66,7 @@
 
 <div class="row gx-3 gy-3 mb-3">
 
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-4">
         <label for="glpi_number_call" class="form-label">N° do chamado GLPI: <span class="text-danger">*</span></label>
         <input
             type="text"
@@ -86,7 +86,36 @@
         @enderror
     </div>
 
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-4">
+        <label for="category" class="form-label">Categoria: <span class="text-danger">*</span></label>
+        <select
+            class="form-select"
+            id="category" name="category"
+            aria-label="Categoria"
+        >
+        <option value="" disabled @selected(!isset($service))>
+            Selecione uma categoria
+        </option>
+        <option value="lab_review"
+            @selected(old('category') === 'lab_review' || (isset($service) && $service->category === 'lab_review'))>
+            Revisão de Laboratório
+        </option>
+        <option value="admin_review"
+            @selected(old('category') === 'admin_review' || (isset($service) && $service->category === 'admin_review'))>
+            Revisão de Administrativo
+        </option>
+        <option value="net_check"
+            @selected(old('category') === 'net_check' || (isset($service) && $service->category === 'net_check'))>
+            Verificação de Internet
+        </option>
+        <option value="others"
+            @selected(old('category') === 'others' || (isset($service) && $service->category === 'others'))>
+            Outros
+        </option>
+        </select>
+    </div>
+
+    <div class="col-12 col-md-4">
         <label for="date" class="form-label">Data: <span class="text-danger">*</span></label>
         <input type="date" class="form-control" id="date" name="date" value="{{ old('date', isset($service) ? $service->date : now()->format('Y-m-d')) }}">
         @error('date')

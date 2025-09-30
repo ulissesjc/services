@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string('glpi_number_call')->unique();
+            $table->string('category');
             $table->text('description');
             $table->date('date');
             $table->string('type');

@@ -12,6 +12,7 @@ class Service extends Model
 
     protected $fillable = [
         'glpi_number_call',
+        'category',
         'description',
         'date',
         'type',
@@ -23,7 +24,7 @@ class Service extends Model
     {
         return $this->belongsTo(User::class);
     }
-    
+
     public function school(): BelongsTo
     {
         return $this->belongsTo(School::class);
@@ -36,6 +37,17 @@ class Service extends Model
             'in_person' => 'Presencial',
             'remote' => 'Remoto',
             'bench' => 'Bancada',
+            default => 'Inválido'
+        };
+    }
+
+    public function getCategoryLabelAttribute()
+    {
+        return match($this->category) {
+            'lab_review' => 'Revisão de Laboratório',
+            'admin_review' => 'Revisão de Administrativo',
+            'net_check' => 'Verificação de Internet',
+            'others' => 'Outros',
             default => 'Inválido'
         };
     }

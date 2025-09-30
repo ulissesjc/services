@@ -111,6 +111,7 @@ class ServiceController extends Controller
         try {
             Service::create([
                 'glpi_number_call' => $request->glpi_number_call,
+                'category' => $request->category,
                 'description' => $request->description,
                 'date' => $request->date,
                 'type' => $request->type,
@@ -145,6 +146,7 @@ class ServiceController extends Controller
         try {
             $service->update([
                 'glpi_number_call' => $request->glpi_number_call,
+                'category' => $request->category,
                 'description' => $request->description,
                 'date' => $request->date,
                 'type' => $request->type,

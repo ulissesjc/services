@@ -5,6 +5,7 @@
                 <th>Usuário</th>
                 <th>N° do chamado GLPI</th>
                 <th>Data</th>
+                <th>Categoria</th>
                 <th>Tipo</th>
                 <th>Município</th>
                 <th>Escola</th>
@@ -17,6 +18,7 @@
                     <td>{{ $service->user->name }}</td>
                     <td>{{ $service->glpi_number_call }}</td>
                     <td>{{ formateDate($service->date) }}</td>
+                    <td>{{ $service->category_label }}</td>
                     <td>{{ $service->type_label }}</td>
                     <td>{{ $service->school->city }}</td>
                     <td>{{ $service->school->name }}</td>
