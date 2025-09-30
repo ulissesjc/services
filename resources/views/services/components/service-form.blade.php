@@ -113,6 +113,9 @@
             Outros
         </option>
         </select>
+        @error('category')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
 
     <div class="col-12 col-md-4">
@@ -141,5 +144,9 @@
             <label class="form-check-label" for="bench">Bancada</label>
             <input class="form-check-input" type="radio" id="bench" name="mode" value="bench" @checked(old('mode', $service->mode ?? 'in_person') == 'bench')>
         </div>
+
+        @error('mode')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
 </div>
