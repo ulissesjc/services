@@ -59,12 +59,12 @@
         </div>
         <div class="row g-3 mt-1">
             <div class="col-12 col-md-4">
-                <label for="type" class="form-label text-muted">Tipo</label>
-                <select class="form-select" id="type" name="type">
-                    <option value="" disabled {{ request('type') == null ? 'selected' : '' }}>Selecione um tipo de atendimento</option>
-                    <option value="in_person" {{ request('type') == 'in_person' ? 'selected' : '' }}>Presencial</option>
-                    <option value="remote" {{ request('type') == 'remote' ? 'selected' : '' }}>Remoto</option>
-                    <option value="bench" {{ request('type') == 'bench' ? 'selected' : '' }}>Bancada</option>
+                <label for="mode" class="form-label text-muted">Forma</label>
+                <select class="form-select" id="mode" name="mode">
+                    <option value="" disabled {{ request('mode') == null ? 'selected' : '' }}>Selecione uma forma de atendimento</option>
+                    <option value="in_person" {{ request('mode') == 'in_person' ? 'selected' : '' }}>Presencial</option>
+                    <option value="remote" {{ request('mode') == 'remote' ? 'selected' : '' }}>Remoto</option>
+                    <option value="bench" {{ request('mode') == 'bench' ? 'selected' : '' }}>Bancada</option>
                 </select>
             </div>
             <div class="col-12 col-md-4">

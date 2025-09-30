@@ -125,7 +125,7 @@
 </div>
 
 <div class="row gx-3 gy-3 mb-4">
-    <label class="form-label">Tipo: <span class="text-danger">*</span></label><br>
+    <label class="form-label">Forma: <span class="text-danger">*</span></label><br>
     <div class="d-flex flex-wrap gap-3 mt-2">
         <div class="form-check">
             <label class="form-check-label" for="in_person">Presencial</label>
@@ -133,7 +133,7 @@
         </div>
 
         <div class="form-check">
-            <label class="form-check-label" for="remote">Remoto</label>
+            <label class="form-check-label" for="remote">Remota</label>
             <input class="form-check-input" type="radio" id="remote" name="type" value="remote" @checked(old('type', $service->type ?? 'in_person') == 'remote')>
         </div>
 

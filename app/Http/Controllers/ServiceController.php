@@ -41,8 +41,8 @@ class ServiceController extends Controller
                 $whenQueryAux->where('id', $request->schoolName);
             });
         })
-        ->when($request->filled('type'), function ($whenQuery) use ($request) {
-            $whenQuery->where('type', $request->type);
+        ->when($request->filled('mode'), function ($whenQuery) use ($request) {
+            $whenQuery->where('mode', $request->mode);
         })
         ->when($request->filled('user'), function ($whenQuery) use ($request) {
             $whenQuery->whereHas('user', function ($whenQueryAux) use ($request) {
@@ -65,7 +65,7 @@ class ServiceController extends Controller
             'end_date' => $request->end_date,
             'city' => $request->city,
             'schoolName' => $request->schoolName,
-            'type' => $request->type,
+            'mode' => $request->mode,
             'user' => $request->user
         ]);
     }
@@ -123,7 +123,7 @@ class ServiceController extends Controller
                 'category' => $request->category,
                 'description' => $request->description,
                 'date' => $request->date,
-                'type' => $request->type,
+                'mode' => $request->mode,
                 'user_id' => Auth::id(),
                 'school_id' => $request->school_id
             ]);
@@ -158,7 +158,7 @@ class ServiceController extends Controller
                 'category' => $request->category,
                 'description' => $request->description,
                 'date' => $request->date,
-                'type' => $request->type,
+                'mode' => $request->mode,
                 'user_id' => Auth::id(),
                 'school_id' => $request->school_id
             ]);

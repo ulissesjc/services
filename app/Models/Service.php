@@ -15,7 +15,7 @@ class Service extends Model
         'category',
         'description',
         'date',
-        'type',
+        'mode',
         'user_id',
         'school_id'
     ];
@@ -31,11 +31,11 @@ class Service extends Model
     }
 
 
-    public function getTypeLabelAttribute()
+    public function getModeLabelAttribute()
     {
-        return match($this->type) {
+        return match($this->mode) {
             'in_person' => 'Presencial',
-            'remote' => 'Remoto',
+            'remote' => 'Remota',
             'bench' => 'Bancada',
             default => 'Inválido'
         };

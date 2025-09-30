@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('category');
             $table->text('description');
             $table->date('date');
-            $table->string('type');
+            $table->string('mode');
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
