@@ -63,7 +63,7 @@
                 <select class="form-select" id="mode" name="mode">
                     <option value="" disabled {{ request('mode') == null ? 'selected' : '' }}>Selecione uma forma de atendimento</option>
                     <option value="in_person" {{ request('mode') == 'in_person' ? 'selected' : '' }}>Presencial</option>
-                    <option value="remote" {{ request('mode') == 'remote' ? 'selected' : '' }}>Remoto</option>
+                    <option value="remote" {{ request('mode') == 'remote' ? 'selected' : '' }}>Remota</option>
                     <option value="bench" {{ request('mode') == 'bench' ? 'selected' : '' }}>Bancada</option>
                 </select>
             </div>
