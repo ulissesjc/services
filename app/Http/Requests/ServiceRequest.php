@@ -40,7 +40,7 @@ class ServiceRequest extends FormRequest
                 ],
             'description' => ['required', 'string'],
             'date' => ['required', 'date', 'before_or_equal:today'],
-            'type' =>
+            'mode' =>
                 [
                     'required',
                     'string',
@@ -75,9 +75,9 @@ class ServiceRequest extends FormRequest
             'date.date' => 'A data deve ser tipo date',
             'date.before_or_equal' => 'A data não pode ser futura',
 
-            'type.required' => 'O tipo é obrigatório',
-            'type.string' => 'O tipo deve ser uma string',
-            'type.in' => 'O tipo selecionado é inválido',
+            'mode.required' => 'A forma de atendimento é obrigatória',
+            'mode.string' => 'A forma de atendimento deve ser uma string',
+            'mode.in' => 'A forma de atendimento selecionada é inválido',
 
             'city.required' => 'É necessário selecionar o município',
 
