@@ -22,7 +22,16 @@ class SchoolController extends Controller
     public function index(Request $request)
     {
         $this->authorize('viewAny', School::class);
-        $schools = School::paginate(10);
+
+        $schools = School::query()
+            ->when($request->filled('city'), function ($whenQuery) use ($request) {
+                $whenQuery->where('city', $request->city);
+            }, function ($query) {
+                $query->orderBy('city');
+            })
+            ->paginate(10)
+            ->withQueryString();
+
         return view('schools.index', compact('schools'));
     }
 

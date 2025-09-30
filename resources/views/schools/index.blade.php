@@ -9,6 +9,7 @@
 @section('content')
     <div class= "bg-white rounded-lg shadow-md overflow-hidden">
         <h2 class="text-primary">Lista de escolas</h2>
+        @include('schools.components.filter')
         @include('schools.components.school-table')
         @include('components.delete-modal')
 
