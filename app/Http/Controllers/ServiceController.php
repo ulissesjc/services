@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ServiceRequest;
 use App\Models\School;
 use App\Models\Service;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,21 +44,29 @@ class ServiceController extends Controller
         ->when($request->filled('type'), function ($whenQuery) use ($request) {
             $whenQuery->where('type', $request->type);
         })
+        ->when($request->filled('user'), function ($whenQuery) use ($request) {
+            $whenQuery->whereHas('user', function ($whenQueryAux) use ($request) {
+                $whenQueryAux->where('name', $request->user);
+            });
+        })
         ->orderByDesc('date')
         ->paginate(10)
         ->withQueryString();
 
         $schools = School::all();
+        $users = User::pluck('name');
 
         return view('services.index', [
             'services' => $services,
             'schools' => $schools,
+            'users' => $users,
             'cities' => School::select('city')->distinct()->orderBy('city')->pluck('city'),
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'city' => $request->city,
             'schoolName' => $request->schoolName,
-            'type' => $request->type
+            'type' => $request->type,
+            'user' => $request->user
         ]);
     }
 

@@ -30,7 +30,34 @@
                 </select>
             </div>
         </div>
-        <div class="row g-3 mt-2">
+        <div class="row g-3 mt-1">
+            <div class="col-12 col-md-6">
+                <label for="user" class="form-label text-muted">Usuário</label>
+                <select class="form-select" id="user" name="user">
+                    <option value="" disabled {{!$user ? 'selected' : ''}}>
+                        Selecione um usuário
+                    </option>
+                    @foreach ($users as $u)
+                        <option value="{{ $u }}" {{ $user == $u ? 'selected' : '' }}>
+                            {{ $u }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="mb-2">
+                    <label for="category" class="form-label text-muted">Categoria</label>
+                    <select class="form-select" id="category" name="category">
+                        <option value="" disabled {{ request('category') == null ? 'selected' : '' }}>Selecione uma categoria de atendimento</option>
+                        <option value="lab_review" {{ request('category') == 'lab_review' ? 'selected' : '' }}>Revisão de Laboratório</option>
+                        <option value="admin_review" {{ request('category') == 'admin_review' ? 'selected' : '' }}>Revisão de Administrativo</option>
+                        <option value="net_check" {{ request('category') == 'net_check' ? 'selected' : '' }}>Verificação de Internet</option>
+                        <option value="others" {{ request('category') == 'others' ? 'selected' : '' }}>Outros</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row g-3 mt-1">
             <div class="col-12 col-md-4">
                 <label for="type" class="form-label text-muted">Tipo</label>
                 <select class="form-select" id="type" name="type">
