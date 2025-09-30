@@ -48,7 +48,8 @@
                     </div>
 
                     <div class="text-center text-secondary mt-3">
-                        <small>&copy; {{ date('Y')}} AtendManager</small>
+                        <small>&copy; {{ date('Y')}} AtendManager</small><br>
+                        <small>Desenvolvido por Ulisses Cavalcante</small>
                     </div>
                 </div>
             </div>
