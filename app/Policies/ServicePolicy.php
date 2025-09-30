@@ -44,6 +44,14 @@ class ServicePolicy
      */
     public function delete(User $user, Service $service): bool
     {
-        return $user->id === $service->user_id || $user->isAdmin();
+        if ($user->id === $service->user_id) {
+            return true;
+        }
+
+        if ($user->isAdmin() && !$service->user->isAdmin()) {
+            return true;
+        }
+
+        return false;
     }
 }
