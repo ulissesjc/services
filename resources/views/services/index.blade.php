@@ -9,7 +9,7 @@
 @section('content')
     <div class= "bg-white rounded-lg shadow-md overflow-hidden">
         <h2 class="text-primary mb-4">Lista de atendimentos realizados</h2>
-        @include('services.components.date-range-filter')
+        @include('services.components.filter')
         @include('services.components.service-table')
         @include('services.components.description-modal')
         @include('components.delete-modal')
