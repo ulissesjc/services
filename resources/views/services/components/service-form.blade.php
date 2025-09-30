@@ -129,17 +129,17 @@
     <div class="d-flex flex-wrap gap-3 mt-2">
         <div class="form-check">
             <label class="form-check-label" for="in_person">Presencial</label>
-            <input class="form-check-input" type="radio" id="in_person" name="type" value="in_person" @checked(old('type', $service->type ?? 'in_person') == 'in_person')>
+            <input class="form-check-input" type="radio" id="in_person" name="mode" value="in_person" @checked(old('mode', $service->mode ?? 'in_person') == 'in_person')>
         </div>
 
         <div class="form-check">
             <label class="form-check-label" for="remote">Remota</label>
-            <input class="form-check-input" type="radio" id="remote" name="type" value="remote" @checked(old('type', $service->type ?? 'in_person') == 'remote')>
+            <input class="form-check-input" type="radio" id="remote" name="mode" value="remote" @checked(old('mode', $service->mode ?? 'in_person') == 'remote')>
         </div>
 
         <div class="form-check">
             <label class="form-check-label" for="bench">Bancada</label>
-            <input class="form-check-input" type="radio" id="bench" name="type" value="bench" @checked(old('type', $service->type ?? 'in_person') == 'bench')>
+            <input class="form-check-input" type="radio" id="bench" name="mode" value="bench" @checked(old('mode', $service->mode ?? 'in_person') == 'bench')>
         </div>
     </div>
 </div>
