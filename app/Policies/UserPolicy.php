@@ -11,7 +11,7 @@ class UserPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->type === 'admin';
+        return $user->isAdmin();
     }
 
     /**
@@ -19,7 +19,7 @@ class UserPolicy
      */
     public function view(User $user, User $model): bool
     {
-        return $user->type === 'admin' || $user->id === $model->id;
+        return $user->isAdmin() || $user->id === $model->id;
     }
 
     /**
@@ -27,7 +27,7 @@ class UserPolicy
      */
     public function create(User $user): bool
     {
-        return $user->type === 'admin';
+        return $user->isAdmin();
     }
 
     /**
@@ -35,7 +35,7 @@ class UserPolicy
      */
     public function update(User $user, User $model): bool
     {
-        return ($user->type === 'admin' && $model->type !== 'admin') || $user->id === $model->id;
+        return ($user->isAdmin() && !$model->isAdmin()) || $user->id === $model->id;
     }
 
     /**
@@ -43,6 +43,10 @@ class UserPolicy
      */
     public function delete(User $user, User $model): bool
     {
-        return $user->type === 'admin' && $model->type !== 'admin';
+        if ($user->isAdmin() && !$model->isAdmin()) {
+            return true;
+        }
+
+        return false;
     }
 }
