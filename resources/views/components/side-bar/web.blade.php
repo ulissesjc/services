@@ -22,7 +22,7 @@
             </div>
         </li>
 
-        @if(auth()->user()->type === 'admin')
+        @if(auth()->user()->isAdmin())
         <li class="nav-item">
             @include('components.side-bar.users', ['id' => 'usersMenu'])
             <div class="collapse" id="usersMenu">
