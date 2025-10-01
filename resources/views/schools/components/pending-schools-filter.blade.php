@@ -3,7 +3,7 @@
 
     <form action="{{ route('schools-pending') }}" method="GET">
         <div class="row">
-            <div class="col-6 col-md-6">
+            <div class="col-6 col-md-4">
                 <label for="months" class="form-label text-muted mt-2">Meses</label>
                 <select class="form-select" id="months" name="months" onchange="this.form.submit()">
                     <option value="" disabled {{ request('months') == null ? 'selected' : '' }}>Selecione a quantidade de meses</option>
