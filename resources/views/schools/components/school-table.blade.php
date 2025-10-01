@@ -21,8 +21,14 @@
                     <td>
                         <div class="d-flex gap-1">
                             @include('schools.components.buttons.show')
-                            <x-buttons.edit :route="route('school-edit', $school)" />
-                            <x-buttons.delete :route="route('school-destroy', $school)" />
+
+                            @can('update', $school)
+                                <x-buttons.edit :route="route('school-edit', $school)" />
+                            @endcan
+
+                            @can('delete', $school)
+                                <x-buttons.delete :route="route('school-destroy', $school)" />
+                            @endcan
                         </div>
                     </td>
                 </tr>

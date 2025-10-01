@@ -16,8 +16,13 @@
                     <td>{{ $user->type === 'admin' ? 'Administrador' : 'Comum'  }}</td>
                     <td>
                         <div class="d-flex gap-1">
-                            <x-buttons.edit :route="route('user-edit', $user)" />
-                            <x-buttons.delete :route="route('user-destroy', $user)" />
+                            @can('update', $user)
+                                <x-buttons.edit :route="route('user-edit', $user)" />
+                            @endcan
+
+                            @can('delete', $user)
+                                <x-buttons.delete :route="route('user-destroy', $user)" />
+                            @endcan
                         </div>
                     </td>
                 </tr>

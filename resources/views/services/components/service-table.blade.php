@@ -25,8 +25,14 @@
                     <td>
                         <div class="d-flex gap-1">
                             @include('services.components.buttons.description')
-                            <x-buttons.edit :route="route('service-edit', $service)" />
-                            <x-buttons.delete :route="route('service-destroy', $service)" />
+
+                            @can('update', $service)
+                                <x-buttons.edit :route="route('service-edit', $service)" />
+                            @endcan
+
+                            @can('delete', $service)
+                                <x-buttons.delete :route="route('service-destroy', $service)" />
+                            @endcan
                         </div>
                     </td>
                 </tr>
