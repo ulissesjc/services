@@ -1,5 +1,3 @@
-
-
 <nav class="navbar navbar-dark bg-dark d-md-none">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas"
@@ -12,5 +10,3 @@
 
 @include('components.side-bar.web')
 @include('components.side-bar.mobile')
-
-
