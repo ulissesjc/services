@@ -34,6 +34,8 @@ class ServiceRequest extends FormRequest
                     Rule::in([
                         'lab_review',
                         'admin_review',
+                        'printer_check',
+                        'tablet_check',
                         'net_check',
                         'others'
                     ]),

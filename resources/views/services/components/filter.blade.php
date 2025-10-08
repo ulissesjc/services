@@ -49,9 +49,11 @@
                     <label for="category" class="form-label text-muted">Categoria</label>
                     <select class="form-select" id="category" name="category">
                         <option value="" disabled {{ request('category') == null ? 'selected' : '' }}>Selecione uma categoria de atendimento</option>
-                        <option value="lab_review" {{ request('category') == 'lab_review' ? 'selected' : '' }}>Revisão de Laboratório</option>
                         <option value="admin_review" {{ request('category') == 'admin_review' ? 'selected' : '' }}>Revisão de Administrativo</option>
+                        <option value="lab_review" {{ request('category') == 'lab_review' ? 'selected' : '' }}>Revisão de Laboratório</option>
+                        <option value="printer_check" {{ request('category') == 'printer_check' ? 'selected' : '' }}>Verificação de Impressora</option>
                         <option value="net_check" {{ request('category') == 'net_check' ? 'selected' : '' }}>Verificação de Internet</option>
+                        <option value="tablet_check" {{ request('category') == 'tablet_check' ? 'selected' : '' }}>Verificação de Tablet</option>
                         <option value="others" {{ request('category') == 'others' ? 'selected' : '' }}>Outros</option>
                     </select>
                 </div>

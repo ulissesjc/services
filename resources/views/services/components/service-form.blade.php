@@ -96,17 +96,25 @@
         <option value="" disabled @selected(!isset($service))>
             Selecione uma categoria
         </option>
-        <option value="lab_review"
-            @selected(old('category') === 'lab_review' || (isset($service) && $service->category === 'lab_review'))>
-            Revisão de Laboratório
-        </option>
         <option value="admin_review"
             @selected(old('category') === 'admin_review' || (isset($service) && $service->category === 'admin_review'))>
             Revisão de Administrativo
         </option>
+        <option value="lab_review"
+            @selected(old('category') === 'lab_review' || (isset($service) && $service->category === 'lab_review'))>
+            Revisão de Laboratório
+        </option>
+        <option value="printer_check"
+            @selected(old('category') === 'printer_check' || (isset($service) && $service->category === 'printer_check'))>
+            Verificação de Impressora
+        </option>
         <option value="net_check"
             @selected(old('category') === 'net_check' || (isset($service) && $service->category === 'net_check'))>
             Verificação de Internet
+        </option>
+        <option value="tablet_check"
+            @selected(old('category') === 'tablet_check' || (isset($service) && $service->category === 'tablet_check'))>
+            Verificação de Tablet
         </option>
         <option value="others"
             @selected(old('category') === 'others' || (isset($service) && $service->category === 'others'))>

@@ -46,6 +46,8 @@ class Service extends Model
         return match($this->category) {
             'lab_review' => 'Revisão de Laboratório',
             'admin_review' => 'Revisão de Administrativo',
+            'printer_check' => 'Verificação de Impressora',
+            'tablet_check' => 'Verificação de Tablet',
             'net_check' => 'Verificação de Internet',
             'others' => 'Outros',
             default => 'Inválido'
