@@ -49,6 +49,9 @@ class ServiceController extends Controller
                 $whenQueryAux->where('name', $request->user);
             });
         })
+        ->when($request->filled('category'), function($whenQuery) use ($request) {
+            $whenQuery->where('category', $request->category);
+        })
         ->orderByDesc('date')
         ->paginate(10)
         ->withQueryString();
@@ -66,7 +69,8 @@ class ServiceController extends Controller
             'city' => $request->city,
             'schoolName' => $request->schoolName,
             'mode' => $request->mode,
-            'user' => $request->user
+            'user' => $request->user,
+            'category' => $request->category
         ]);
     }
 
