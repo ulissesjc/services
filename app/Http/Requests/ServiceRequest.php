@@ -40,7 +40,7 @@ class ServiceRequest extends FormRequest
                         'others'
                     ]),
                 ],
-            'description' => ['required', 'string'],
+            'description' => ['nullable', 'string'],
             'date' => ['required', 'date', 'before_or_equal:today'],
             'mode' =>
                 [
@@ -70,7 +70,6 @@ class ServiceRequest extends FormRequest
             'category.string' => 'A categoria deve ser uma string',
             'category.in' => 'A categoria é inválida',
 
-            'description.required' => 'A descrição é obrigatória',
             'description.string' => 'A descrição deve ser um text',
 
             'date.required' => 'A data é obrigatória',

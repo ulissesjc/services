@@ -56,7 +56,7 @@
 
 <div class="row gx-3 gy-3 mb-3">
     <div class="col-12">
-        <label for="description" class="form-label">Descrição: <span class="text-danger">*</span></label>
+        <label for="description" class="form-label">Descrição: </label>
         <textarea class="form-control" id="description" name="description" placeholder="Foi realizada a instalação de algumas impressoras" rows="4">{{ old('description', $service->description ?? '') }}</textarea>
         @error('description')
             <div class="text-danger">{{ $message }}</div>
