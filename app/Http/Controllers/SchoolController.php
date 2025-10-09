@@ -26,9 +26,9 @@ class SchoolController extends Controller
         $schools = School::query()
             ->when($request->filled('city'), function ($whenQuery) use ($request) {
                 $whenQuery->where('city', $request->city);
-            }, function ($query) {
-                $query->orderBy('city');
             })
+            ->orderBy('city')
+            ->orderBy('name')
             ->paginate(10)
             ->withQueryString();
 
