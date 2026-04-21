@@ -33,3 +33,7 @@ Este projeto foi desenvolvido durante meu estágio em Suporte de TI e Desenvolvi
 ### Lista de atendimentos cadastrados
 
 ![Lista de atendimentos cadastrados](images/services_list.png)
+
+### Relatório de escolas sem atendimento há determinado período
+
+![Relatório de escolas sem atendimento há determinado período](images/pending_schools.png)
