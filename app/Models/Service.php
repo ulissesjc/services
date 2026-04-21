@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Service extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'glpi_number_call',
         'category',

@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -51,32 +49,21 @@ class UserController extends Controller
 
     /**
      * Cadastra um novo usuário no banco de dados.
-     * Utiliza transação para garantir integridade dos dados.
      * @param \App\Http\Requests\UserRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(UserRequest $request)
     {
         $this->authorize('create', User::class);
-        $request->validated();
-
-        DB::beginTransaction();
 
         try {
-            User::create([
-                'type' => $request->type,
-                'name' => $request->name,
-                'username' => $request->username,
-                'password' => Hash::make($request->password)
-            ]);
-
-            DB::commit();
+            $data = $request->validated();
+            User::create($data);
 
             return redirect()->route('user-index')
                 ->with('success', 'Usuário cadastrado com sucesso!');
         } catch (\Exception $e) {
-            DB::rollBack();
-
+            report($e);
             return redirect()->route('user-index')
                 ->with('error', 'Ocorreu um erro ao tentar cadastrar o usuário!');
         }
@@ -84,7 +71,6 @@ class UserController extends Controller
 
     /**
      * Atualiza os dados de um usuário existente.
-     * Utiliza transação para garantir integridade dos dados.
      * @param \App\Http\Requests\UserRequest $request
      * @param \App\Models\User $user
      * @return \Illuminate\Http\RedirectResponse
@@ -93,8 +79,6 @@ class UserController extends Controller
     {
         $this->authorize('update', $user);
         $validated = $request->validated();
-
-        DB::beginTransaction();
 
         try {
             $data = [
@@ -112,8 +96,6 @@ class UserController extends Controller
 
             $user->update($data);
 
-            DB::commit();
-
             if (Auth::user()->isAdmin()) {
                 return redirect()->route('user-index')
                     ->with('success', 'Usuário atualizado com sucesso!');
@@ -122,7 +104,7 @@ class UserController extends Controller
             return redirect()->route('schools-pending')
                 ->with('success', 'Dados atualizados com sucesso!');
         } catch (\Exception $e) {
-            DB::rollBack();
+            report($e);
 
             if (Auth::user()->isAdmin()) {
                 return redirect()->route('user-index')
@@ -142,6 +124,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $this->authorize('delete', $user);
+
         try {
             $user->delete();
             return redirect()->route('user-index')

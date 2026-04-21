@@ -9,8 +9,6 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ServiceController extends Controller
@@ -26,10 +24,10 @@ class ServiceController extends Controller
     {
         $this->authorize('viewAny', Service::class);
         $services = Service::with('school')->when($request->filled('start_date'), function($whenQuery) use ($request) {
-            $whenQuery->where('date', '>=', \Carbon\Carbon::parse($request->start_date)->format('Y-m-d'));
+            $whenQuery->where('date', '>=', Carbon::parse($request->start_date)->format('Y-m-d'));
         })
         ->when($request->filled('end_date'), function($whenQuery) use ($request) {
-            $whenQuery->where('date', '<=', \Carbon\Carbon::parse($request->end_date)->format('Y-m-d'));
+            $whenQuery->where('date', '<=', Carbon::parse($request->end_date)->format('Y-m-d'));
         })
         ->when($request->filled('city'), function ($whenQuery) use ($request){
             $whenQuery->whereHas('school', function($whenQueryAux) use ($request) {
@@ -110,35 +108,22 @@ class ServiceController extends Controller
 
     /**
      * Cadastra um novo atendimento no banco de dados.
-     * Utiliza transação para garantir integridade dos dados.
      * @param \App\Http\Requests\ServiceRequest $request
      * @return \Illuminate\Http\RedirectResponse
     */
     public function store(ServiceRequest $request)
     {
         $this->authorize('create', Service::class);
-        $request -> validated();
-
-        DB::beginTransaction();
 
         try {
+            $data = $request -> validated();
             Service::create([
-                'glpi_number_call' => $request->glpi_number_call,
-                'category' => $request->category,
-                'description' => $request->description,
-                'date' => $request->date,
-                'mode' => $request->mode,
-                'user_id' => Auth::id(),
-                'school_id' => $request->school_id
+                ...$data,
+                'user_id' => Auth::id()
             ]);
-
-            DB::commit();
-
             return redirect()->route('service-index')
                 ->with('success', 'Atendimento cadastrado com sucesso!');
-        } catch (\Exception $e) {
-            DB::rollBack();
-
+        } catch (\Exception) {
             return redirect()->route('service-index')
                 ->with('error', 'Ocorreu um erro ao tentar cadastrar o atendimento!');
         }
@@ -146,7 +131,6 @@ class ServiceController extends Controller
 
     /**
      * Atualiza os dados de um atendimento existente.
-     * Utiliza transação para garantir a integridade dos dados.
      * @param \App\Http\Requests\ServiceRequest $request
      * @param \App\Models\Service $service
      * @return \Illuminate\Http\RedirectResponse
@@ -154,26 +138,18 @@ class ServiceController extends Controller
     public function update(ServiceRequest $request, Service $service)
     {
         $this->authorize('update', $service);
-        $request->validated();
 
         try {
-            $service->update([
-                'glpi_number_call' => $request->glpi_number_call,
-                'category' => $request->category,
-                'description' => $request->description,
-                'date' => $request->date,
-                'mode' => $request->mode,
-                'user_id' => Auth::id(),
-                'school_id' => $request->school_id
-            ]);
+            $data = $request->validated();
 
-            DB::commit();
+            $service->update([
+                ...$data,
+                'user_id' => Auth::id(),
+            ]);
 
             return redirect()->route('service-index')
                 ->with('success', 'Atendimento atualizado com sucesso!');
-        } catch (\Exception $e) {
-            DB::rollBack();
-
+        } catch (\Exception) {
             return redirect()->route('service-index')
                 ->with('error', 'Ocorreu um erro ao tentar atualizar o atendimento!');
         }
@@ -187,14 +163,14 @@ class ServiceController extends Controller
     public function destroy(Service $service)
     {
         $this->authorize('delete', $service);
+
         try {
             $service->delete();
             return redirect()->route('service-index')
                 ->with('success', 'Atendimento removido com sucesso!');
-        } catch (\Exception $e){
+        } catch (\Exception){
             return redirect()->route('service-index')
                 ->with('error', 'Ocorreu um erro ao tentar remover o atendimento');
         }
     }
-
 }

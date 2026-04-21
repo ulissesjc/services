@@ -73,37 +73,22 @@ class SchoolController extends Controller
 
     /**
      * Cadastra uma nova escola no banco de dados.
-     * Utiliza transação para garantir integridade dos dados.
      * @param \App\Http\Requests\SchoolRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(SchoolRequest $request)
     {
         $this->authorize('create', School::class);
-        $request->validated();
 
-        DB::beginTransaction();
+        $data = $request->validated();
 
         try {
-            School::create([
-                'name' => $request->name,
-                'inep' => $request->inep,
-                'cnpj' => $request->cnpj,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'city' => $request->city,
-                'address' => $request->address,
-                'has_lab' => $request->has_lab,
-                'has_resource_room' => $request->has_resource_room
-            ]);
-
-            DB::commit();
+            School::create($data);
 
             return redirect()->route('school-index')
                 ->with('success', 'Escola cadastrada com sucesso!');
         } catch (\Exception $e) {
-            DB::rollBack();
-
+            report($e);
             return redirect()->route('school-index')
                 ->with('error', 'Ocorreu um erro ao tentar cadastrar a escola!');
         }
@@ -111,7 +96,6 @@ class SchoolController extends Controller
 
     /**
      * Atualiza os dados de uma escola existente.
-     * Utiliza transação para garantir integridade dos dados.
      * @param \App\Http\Requests\SchoolRequest $request
      * @param \App\Models\School $school
      * @return \Illuminate\Http\RedirectResponse
@@ -119,28 +103,16 @@ class SchoolController extends Controller
     public function update(SchoolRequest $request, School $school)
     {
         $this->authorize('update', $school);
-        $request->validated();
+
+        $data = $request->validated();
 
         try {
-            $school->update([
-                'name' => $request->name,
-                'inep' => $request->inep,
-                'cnpj' => $request->cnpj,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'city' => $request->city,
-                'address' => $request->address,
-                'has_lab' => $request->has_lab,
-                'has_resource_room' => $request->has_resource_room
-            ]);
-
-            DB::commit();
+            $school->update($data);
 
             return redirect()->route('school-index')
                 ->with('success', 'Escola atualizada com sucesso!');
         } catch (\Exception $e) {
-            DB::rollBack();
-
+            report($e);
             return redirect()->route('school-index')
                 ->with('error', 'Ocorreu um erro ao tentar atualizar a escola!');
         }
@@ -154,6 +126,7 @@ class SchoolController extends Controller
     public function destroy(School $school)
     {
         $this->authorize('delete', $school);
+
         try {
             $school->delete();
             return redirect()->route('school-index')
